@@ -177,25 +177,25 @@
             background: var(--primary-color, #cc6600);
             color: white;
             border: none;
-            padding: 12px 20px; /* Aumentado */
-            border-radius: 8px; /* Aumentado */
+            padding: 12px 20px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 14px; /* Aumentado */
+            font-size: 14px;
             font-weight: bold;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2); /* Añadido */
-            transition: all 0.3s ease; /* Mejorado */
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
         }
         
         .view-btn:hover {
             background: var(--primary-hover, #b35900);
-            transform: translateY(-2px); /* Nuevo efecto */
-            box-shadow: 0 6px 8px rgba(0,0,0,0.3); /* Mejorado */
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.3);
         }
         
         .view-btn.active {
             background: var(--primary-hover, #b35900);
-            transform: translateY(0); /* Desactiva el efecto de elevación al estar activo */
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Sombreado más sutil para el estado activo */
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
         .cover-letter-container {
@@ -259,7 +259,7 @@
         
         .buttons-row {
             display: flex;
-            flex-direction: column; /* Cambiado para apilarlos */
+            flex-direction: column;
             gap: 10px;
         }
         
@@ -267,10 +267,10 @@
             background: var(--primary-color, #d17400);
             color: white;
             border: none;
-            padding: 15px 25px; /* Aumentado para destacarse */
+            padding: 15px 25px;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 14px; /* Aumentado */
+            font-size: 14px;
             font-weight: bold;
             box-shadow: 0 4px 6px rgba(0,0,0,0.2);
             transition: all 0.3s ease;
@@ -321,8 +321,88 @@
             box-shadow: 0 0 8px rgba(0,0,0,0.3);
         }
         
+        /* New section for the job link */
+        .job-link-container {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #e9e9e9;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+            display: none;
+        }
+        
+        .job-link-container h3 {
+            font-size: 16px;
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        
+        .job-link-container img {
+            max-width: 150px;
+            height: auto;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: transform 0.3s, border 0.3s; /* Añadido para el efecto */
+            border: 2px solid transparent; /* Borde transparente por defecto */
+        }
+        
+        .job-link-container img:hover {
+            transform: scale(1.1); /* Agranda la imagen al 110% */
+            border: 2px solid #047857; /* Borde verde al pasar el mouse */
+        }
+        
+        .job-link-container a.job-btn {
+            display: inline-block;
+            background: #047857;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+        
+        .job-link-container a.job-btn:hover {
+            background: #065f46;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.3);
+        }
+        
+        /* Fullscreen Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            animation: zoom 0.6s;
+        }
+        
+        @keyframes zoom {
+            from {transform: scale(0.1)}
+            to {transform: scale(1)}
+        }
+        /* End of new section styles */
+
         @media print {
-            .download-buttons {
+            .download-buttons, .job-link-container, .modal {
                 display: none;
             }
             body {
@@ -344,6 +424,11 @@
     </style>
 </head>
 <body>
+    <!-- Fullscreen Modal -->
+    <div id="image-modal" class="modal" onclick="closeModal()">
+        <img class="modal-content" id="modal-image">
+    </div>
+
     <div class="download-buttons">
         <div class="view-buttons">
             <button class="view-btn active" onclick="showCV()">Ver CV</button>
@@ -387,6 +472,11 @@
         </div>
         <div class="buttons-row">
             <button class="download-btn" onclick="downloadAsPDF()">Descargar PDF</button>
+        </div>
+        <div class="job-link-container" id="job-link-container">
+            <h3>Enlace de la vacante</h3>
+            <img src="assets/Afirma.png" alt="Afirma Solutions logo" onclick="openModal('assets/Afirma.png')">
+            <a href="https://www.glassdoor.com.mx/job-listing/data-analyst-power-bi-afirma-solutions-JV_KO0,21_KE22,38.htm?jl=1009873612255&cs=1_e6d2005d&s=269&t=NS&pos=101&src=GD_JOB_AD&guid=0000019965f7e00d864f3de45b387156&uido=70ECC429928706FCDED185701223B613&jobListingId=1009873612255&ea=1&ao=1136043&vt=w&cb=1758352367753&ctt=1758352382694" target="_blank" class="job-btn">Ver en Glassdoor</a>
         </div>
     </div>
     
@@ -629,6 +719,7 @@
         function showCV() {
             document.getElementById('cv-content').style.display = 'block';
             document.getElementById('cover-letter-content').style.display = 'none';
+            document.getElementById('job-link-container').style.display = 'none';
             // Actualizar la clase activa en los botones de vista
             document.querySelector('.view-btn:nth-of-type(1)').classList.add('active');
             document.querySelector('.view-btn:nth-of-type(2)').classList.remove('active');
@@ -638,9 +729,23 @@
         function showCoverLetter() {
             document.getElementById('cv-content').style.display = 'none';
             document.getElementById('cover-letter-content').style.display = 'block';
+            document.getElementById('job-link-container').style.display = 'block';
             // Actualizar la clase activa en los botones de vista
             document.querySelector('.view-btn:nth-of-type(1)').classList.remove('active');
             document.querySelector('.view-btn:nth-of-type(2)').classList.add('active');
+        }
+        
+        // Modal functions
+        function openModal(imageSrc) {
+            const modal = document.getElementById('image-modal');
+            const modalImage = document.getElementById('modal-image');
+            modal.style.display = 'flex';
+            modalImage.src = imageSrc;
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('image-modal');
+            modal.style.display = 'none';
         }
 
         // Inicializar selector de colores
@@ -721,84 +826,6 @@
             }).catch(error => {
                 console.error('Error al generar PDF:', error);
             });
-        }
-        
-        function downloadAsDocx() {
-            try {
-                // Check if the current view is CV or Cover Letter
-                const isCV = document.getElementById('cv-content').style.display !== 'none';
-                const contentToDownload = isCV ? 'cv-content' : 'cover-letter-content';
-                const fileName = isCV ? 'CV_Baltazar_Dimayuga.docx' : 'Cover_Letter_Baltazar_Dimayuga.docx';
-                const contentElement = document.getElementById(contentToDownload);
-
-                // Crear una copia del contenido sin los botones
-                const clonedContent = contentElement.cloneNode(true);
-                
-                // Crear un contenedor temporal
-                const tempContainer = document.createElement('div');
-                tempContainer.appendChild(clonedContent);
-                
-                // Configurar estilos para Word con el color actual
-                const wordStyles = `
-                    <style>
-                        body { font-family: Arial, sans-serif; }
-                        .header { 
-                            background: linear-gradient(135deg, ${currentColor.gradientStart}, ${currentColor.gradientEnd}); 
-                            color: white; 
-                            padding: 20px; 
-                        }
-                        .header h1 { font-size: 28px; margin-bottom: 5px; }
-                        .section-title { 
-                            color: ${currentColor.primary}; 
-                            font-weight: bold; 
-                            text-transform: uppercase; 
-                            border-bottom: 1px solid ${currentColor.primary}; 
-                            padding-bottom: 3px;
-                            margin-bottom: 15px;
-                        }
-                        .skill-tag { 
-                            background-color: #e0e0e0; 
-                            padding: 4px 8px; 
-                            margin: 2px; 
-                            display: inline-block; 
-                            border-radius: 3px;
-                        }
-                        .contact-info { font-size: 11px; }
-                        .item-content { font-size: 10px; line-height: 1.3; }
-                        .item-title { font-weight: bold; font-size: 11px; }
-                        .item-subtitle { font-size: 10px; color: #666; font-style: italic; }
-                        .languages { display: flex; gap: 30px; font-size: 11px; }
-                    </style>
-                `;
-                
-                // Crear HTML completo para Word
-                const htmlContent = `
-                    <!DOCTYPE html>
-                    <html>
-                    <head>
-                        <meta charset="utf-8">
-                        ${wordStyles}
-                    </head>
-                    <body>
-                        ${tempContainer.innerHTML}
-                    </body>
-                    </html>
-                `;
-                
-                // Convertir a Word
-                const converted = htmlDocx.asBlob(htmlContent);
-                
-                // Crear link de descarga
-                const link = document.createElement('a');
-                link.href = URL.createObjectURL(converted);
-                link.download = fileName;
-                link.click();
-                
-                // Limpiar
-                URL.revokeObjectURL(link.href);
-            } catch (error) {
-                console.error('Error al generar DOCX:', error);
-            }
         }
     </script>
 </body>
