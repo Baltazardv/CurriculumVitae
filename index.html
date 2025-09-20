@@ -167,8 +167,99 @@
             gap: 10px;
         }
         
+        .view-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .view-btn {
+            background: var(--primary-color, #cc6600);
+            color: white;
+            border: none;
+            padding: 12px 20px; /* Aumentado */
+            border-radius: 8px; /* Aumentado */
+            cursor: pointer;
+            font-size: 14px; /* Aumentado */
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2); /* Añadido */
+            transition: all 0.3s ease; /* Mejorado */
+        }
+        
+        .view-btn:hover {
+            background: var(--primary-hover, #b35900);
+            transform: translateY(-2px); /* Nuevo efecto */
+            box-shadow: 0 6px 8px rgba(0,0,0,0.3); /* Mejorado */
+        }
+        
+        .view-btn.active {
+            background: var(--primary-hover, #b35900);
+            transform: translateY(0); /* Desactiva el efecto de elevación al estar activo */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Sombreado más sutil para el estado activo */
+        }
+
+        .cover-letter-container {
+            display: none;
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border: 2px solid #ccc;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 40px;
+            line-height: 1.6;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        .letter-header {
+            text-align: right;
+            margin-bottom: 30px;
+            font-size: 12px;
+        }
+        
+        .letter-date {
+            margin-bottom: 20px;
+        }
+        
+        .letter-recipient {
+            text-align: left;
+            margin-bottom: 30px;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+        
+        .letter-recipient strong {
+            font-weight: bold;
+        }
+        
+        .letter-greeting {
+            margin-bottom: 20px;
+            font-size: 12px;
+        }
+        
+        .letter-body {
+            font-size: 12px;
+            line-height: 1.6;
+            text-align: justify;
+        }
+        
+        .letter-body p {
+            margin-bottom: 15px;
+        }
+        
+        .letter-closing {
+            margin-top: 30px;
+            font-size: 12px;
+        }
+        
+        .letter-signature {
+            margin-top: 30px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
         .buttons-row {
             display: flex;
+            flex-direction: column; /* Cambiado para apilarlos */
             gap: 10px;
         }
         
@@ -176,15 +267,19 @@
             background: var(--primary-color, #d17400);
             color: white;
             border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
+            padding: 15px 25px; /* Aumentado para destacarse */
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 12px;
-            transition: background-color 0.3s;
+            font-size: 14px; /* Aumentado */
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
         }
         
         .download-btn:hover {
             background: var(--primary-hover, #b86300);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.3);
         }
         
         .color-selector {
@@ -250,39 +345,44 @@
 </head>
 <body>
     <div class="download-buttons">
+        <div class="view-buttons">
+            <button class="view-btn active" onclick="showCV()">Ver CV</button>
+            <button class="view-btn" onclick="showCoverLetter()">Ver Cover Letter</button>
+        </div>
+    
         <div class="color-selector">
             <div class="color-selector-title">Seleccionar Color</div>
             <div class="color-options">
                 <div class="color-option active" style="background-color: #cc6600" 
-                     data-primary="#cc6600" data-hover="#b35900" data-start="#cc6600" data-end="#e67300" 
-                     title="Naranja Profesional"></div>
+                    data-primary="#cc6600" data-hover="#b35900" data-start="#cc6600" data-end="#e67300" 
+                    title="Naranja Profesional"></div>
                 <div class="color-option" style="background-color: #2c5aa0" 
-                     data-primary="#2c5aa0" data-hover="#1e3f73" data-start="#2c5aa0" data-end="#4472c4" 
-                     title="Azul Corporativo"></div>
+                    data-primary="#2c5aa0" data-hover="#1e3f73" data-start="#2c5aa0" data-end="#4472c4" 
+                    title="Azul Corporativo"></div>
                 <div class="color-option" style="background-color: #2d5016" 
-                     data-primary="#2d5016" data-hover="#1a2f0b" data-start="#2d5016" data-end="#4a7c59" 
-                     title="Verde Profesional"></div>
+                    data-primary="#2d5016" data-hover="#1a2f0b" data-start="#2d5016" data-end="#4a7c59" 
+                    title="Verde Profesional"></div>
                 <div class="color-option" style="background-color: #c41e3a" 
-                     data-primary="#c41e3a" data-hover="#9c1529" data-start="#c41e3a" data-end="#dc2626" 
-                     title="Rojo Corporativo"></div>
+                    data-primary="#c41e3a" data-hover="#9c1529" data-start="#c41e3a" data-end="#dc2626" 
+                    title="Rojo Corporativo"></div>
                 <div class="color-option" style="background-color: #663399" 
-                     data-primary="#663399" data-hover="#4c2673" data-start="#663399" data-end="#8b5cf6" 
-                     title="Púrpura"></div>
+                    data-primary="#663399" data-hover="#4c2673" data-start="#663399" data-end="#8b5cf6" 
+                    title="Púrpura"></div>
                 <div class="color-option" style="background-color: #1e3a8a" 
-                     data-primary="#1e3a8a" data-hover="#1e293b" data-start="#1e3a8a" data-end="#3b82f6" 
-                     title="Azul Marino"></div>
+                    data-primary="#1e3a8a" data-hover="#1e293b" data-start="#1e3a8a" data-end="#3b82f6" 
+                    title="Azul Marino"></div>
                 <div class="color-option" style="background-color: #047857" 
-                     data-primary="#047857" data-hover="#065f46" data-start="#047857" data-end="#10b981" 
-                     title="Verde Esmeralda"></div>
+                    data-primary="#047857" data-hover="#065f46" data-start="#047857" data-end="#10b981" 
+                    title="Verde Esmeralda"></div>
                 <div class="color-option" style="background-color: #991b1b" 
-                     data-primary="#991b1b" data-hover="#7f1d1d" data-start="#991b1b" data-end="#ef4444" 
-                     title="Granate"></div>
+                    data-primary="#991b1b" data-hover="#7f1d1d" data-start="#991b1b" data-end="#ef4444" 
+                    title="Granate"></div>
                 <div class="color-option" style="background-color: #475569" 
-                     data-primary="#475569" data-hover="#334155" data-start="#475569" data-end="#64748b" 
-                     title="Azul Acero"></div>
+                    data-primary="#475569" data-hover="#334155" data-start="#475569" data-end="#64748b" 
+                    title="Azul Acero"></div>
                 <div class="color-option" style="background-color: #374151" 
-                     data-primary="#374151" data-hover="#1f2937" data-start="#374151" data-end="#6b7280" 
-                     title="Gris Oscuro"></div>
+                    data-primary="#374151" data-hover="#1f2937" data-start="#374151" data-end="#6b7280" 
+                    title="Gris Oscuro"></div>
             </div>
         </div>
         <div class="buttons-row">
@@ -377,10 +477,9 @@
                     <div class="item-subtitle">Desarrollo Front-End</div>
                     <div class="item-content">
                         <ul>
-                            <li>Desarrollé y optimicé landing page principal mejorando presencia digital (HTML, CSS, JavaScript).</li>
-                            <li>Lideré desarrollo de plataforma e-commerce para Kings League Americas con diseño responsive.</li>
-                            <li>Integré plataforma de relojes en Shopify utilizando Liquid, CSS y JavaScript para UX optimizada.</li>
-                            <li>Implementé metodologías ágiles y control de versiones con Git/GitHub.</li>
+                            <li>Desarrollé sitios web y plataformas e-commerce para múltiples sectores: deportes (Kings League Americas), retail (Big and Tall), viajes (Imperial Fly) y hospedaje (Otto Vacational Rentals).</li>
+                            <li>Implementé soluciones completas con HTML, CSS, JavaScript y Shopify, optimizando UX y presencia digital.</li>
+                            <li>Aplicó metodologías ágiles y control de versiones con Git/GitHub en todos los proyectos.</li>
                         </ul>
                     </div>
                 </div>
@@ -474,6 +573,49 @@
         </div>
     </div>
     
+    <div class="cover-letter-container" id="cover-letter-content">
+        <div class="letter-header">
+            <div class="letter-date">Guerrero, México<br>20 de septiembre de 2025</div>
+        </div>
+        
+        <div class="letter-recipient">
+            <strong>Equipo de Recursos Humanos<br>
+            Afirma Solutions<br>
+            Ciudad de México</strong>
+        </div>
+        
+        <div class="letter-greeting">
+            Estimados colaboradores de Afirma Solutions:
+        </div>
+        
+        <div class="letter-body">
+            <p>Me dirijo a ustedes para expresar mi interés en la posición de <strong>Data Analyst (Power BI)</strong> que han publicado. Como Ingeniero en Computación titulado por la Universidad Autónoma de Guerrero y actualmente especializándome en análisis de datos a través del bootcamp de TripleTen, considero que mi perfil técnico y mi enfoque hacia la inteligencia de negocios pueden aportar valor significativo a su equipo.</p>
+            
+            <p>Mi formación académica en Ingeniería en Computación me ha proporcionado una base sólida en el manejo de tecnologías y metodologías que son fundamentales para el análisis de datos. Durante mi trayectoria profesional, he desarrollado experiencia práctica con <strong>Python para automatización y análisis</strong>, <strong>SQL para gestión de bases de datos</strong>, y <strong>herramientas de visualización como Power BI y Tableau</strong>. Además, manejo Excel a nivel avanzado y tengo experiencia en el desarrollo de aplicaciones web y sistemas de gestión.</p>
+            
+            <p>Actualmente estoy completando un bootcamp especializado en análisis de datos donde he profundizado en técnicas de <strong>análisis exploratorio de datos (EDA)</strong>, <strong>limpieza y transformación de datos</strong>, y <strong>desarrollo de insights accionables para la toma de decisiones empresariales</strong>. Mi proyecto más reciente involucró el análisis de factores de éxito en la industria de videojuegos, donde apliqué Python, pandas, matplotlib y técnicas estadísticas para generar recomendaciones estratégicas basadas en datos.</p>
+            
+            <p>Aunque mi experiencia específica en análisis de datos se está consolidando a través de mi formación especializada actual, traigo una perspectiva valiosa desde el desarrollo tecnológico y la gestión de procesos. En mis roles anteriores, he automatizado procesos mediante aplicaciones PHP, optimizado sistemas digitales, y gestionado proyectos que han resultado en mejoras cuantificables como la reducción del 20% en incidencias técnicas y contribuciones al crecimiento de ventas del 60%.</p>
+            
+            <p>Me atrae particularmente la oportunidad de trabajar en Afirma Solutions por su enfoque en consultoría tecnológica y financiera. Valoro el <strong>esquema híbrido</strong> que ofrecen, ya que me permitiría equilibrar el trabajo colaborativo presencial con la flexibilidad del trabajo remoto. Además, mi disponibilidad para viajar a Querétaro mensualmente demuestra mi compromiso con las necesidades del proyecto.</p>
+            
+            <p>Estoy entusiasmado por la posibilidad de aplicar mis conocimientos técnicos en un entorno empresarial dinámico y contribuir al crecimiento de sus proyectos de análisis de datos. Mi enfoque de <strong>autogestión</strong>, <strong>comunicación efectiva</strong> y <strong>orientación hacia resultados de negocio</strong> me permitirá integrarme exitosamente a su equipo.</p>
+            
+        </div>
+        
+        <div class="letter-closing">
+            Sin más por el momento, agradezco su tiempo y consideración. Quedo a la espera de la oportunidad de conversar sobre cómo puedo contribuir al éxito de Afirma Solutions.
+        </div>
+        
+        <div class="letter-signature">
+            Atentamente,<br><br>
+            <strong>Baltazar Dimayuga</strong><br>
+            Tel: (+52) 747 155 8247<br>
+            Email: baltazardv13@gmail.com<br>
+            LinkedIn: www.linkedin.com/in/baltazar-dimayuga-4000a2293
+        </div>
+    </div>
+    
     <script>
         // Variables globales para el color actual
         let currentColor = {
@@ -483,6 +625,24 @@
             gradientEnd: '#e67300'
         };
         
+        // Función para mostrar el CV y ocultar la Cover Letter
+        function showCV() {
+            document.getElementById('cv-content').style.display = 'block';
+            document.getElementById('cover-letter-content').style.display = 'none';
+            // Actualizar la clase activa en los botones de vista
+            document.querySelector('.view-btn:nth-of-type(1)').classList.add('active');
+            document.querySelector('.view-btn:nth-of-type(2)').classList.remove('active');
+        }
+        
+        // Función para mostrar la Cover Letter y ocultar el CV
+        function showCoverLetter() {
+            document.getElementById('cv-content').style.display = 'none';
+            document.getElementById('cover-letter-content').style.display = 'block';
+            // Actualizar la clase activa en los botones de vista
+            document.querySelector('.view-btn:nth-of-type(1)').classList.remove('active');
+            document.querySelector('.view-btn:nth-of-type(2)').classList.add('active');
+        }
+
         // Inicializar selector de colores
         document.addEventListener('DOMContentLoaded', function() {
             const colorOptions = document.querySelectorAll('.color-option');
@@ -516,8 +676,13 @@
         }
         
         function downloadAsPDF() {
+            // Check if the current view is CV or Cover Letter
+            const isCV = document.getElementById('cv-content').style.display !== 'none';
+            const contentToPrint = isCV ? 'cv-content' : 'cover-letter-content';
+            const fileName = isCV ? 'CV_Baltazar_Dimayuga.pdf' : 'Cover_Letter_Baltazar_Dimayuga.pdf';
+
             const { jsPDF } = window.jspdf;
-            const cvElement = document.getElementById('cv-content');
+            const contentElement = document.getElementById(contentToPrint);
             
             // Configurar opciones para html2canvas
             const options = {
@@ -525,11 +690,11 @@
                 useCORS: true,
                 allowTaint: true,
                 backgroundColor: '#ffffff',
-                width: cvElement.offsetWidth,
-                height: cvElement.offsetHeight
+                width: contentElement.offsetWidth,
+                height: contentElement.offsetHeight
             };
             
-            html2canvas(cvElement, options).then(canvas => {
+            html2canvas(contentElement, options).then(canvas => {
                 const imgData = canvas.toDataURL('image/png');
                 const pdf = new jsPDF('p', 'mm', 'a4');
                 
@@ -552,18 +717,22 @@
                     heightLeft -= pageHeight;
                 }
                 
-                pdf.save('CV_Baltazar_Dimayuga.pdf');
+                pdf.save(fileName);
             }).catch(error => {
                 console.error('Error al generar PDF:', error);
-                alert('Error al generar el PDF. Por favor, intenta de nuevo.');
             });
         }
         
         function downloadAsDocx() {
             try {
+                // Check if the current view is CV or Cover Letter
+                const isCV = document.getElementById('cv-content').style.display !== 'none';
+                const contentToDownload = isCV ? 'cv-content' : 'cover-letter-content';
+                const fileName = isCV ? 'CV_Baltazar_Dimayuga.docx' : 'Cover_Letter_Baltazar_Dimayuga.docx';
+                const contentElement = document.getElementById(contentToDownload);
+
                 // Crear una copia del contenido sin los botones
-                const cvContent = document.getElementById('cv-content');
-                const clonedContent = cvContent.cloneNode(true);
+                const clonedContent = contentElement.cloneNode(true);
                 
                 // Crear un contenedor temporal
                 const tempContainer = document.createElement('div');
@@ -622,14 +791,13 @@
                 // Crear link de descarga
                 const link = document.createElement('a');
                 link.href = URL.createObjectURL(converted);
-                link.download = 'CV_Baltazar_Dimayuga.docx';
+                link.download = fileName;
                 link.click();
                 
                 // Limpiar
                 URL.revokeObjectURL(link.href);
             } catch (error) {
                 console.error('Error al generar DOCX:', error);
-                alert('Error al generar el archivo Word. Por favor, intenta de nuevo.');
             }
         }
     </script>
