@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CV - Baltazar Dimayuga</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html-docx-js/0.4.0/html-docx.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
@@ -16,208 +15,184 @@
         
         body {
             font-family: 'Arial', sans-serif;
-            line-height: 1.4;
-            color: #333;
-            background-color: #f5f5f5;
-            padding: 20px;
+            line-height: 1.3;
+            color: #000;
+            background-color: #f0f0f0;
+            padding: 15px;
+            font-size: 12px;
         }
         
         .cv-container {
             max-width: 800px;
             margin: 0 auto;
             background: white;
-            border: 2px solid #ccc;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 20px;
         }
         
         .header {
-            background: linear-gradient(135deg, var(--primary-gradient-start), var(--primary-gradient-end));
-            color: white;
-            padding: 20px;
-            position: relative;
+            background: #ffffff;
+            color: black;
+            padding: 0 0 12px 0;
+            text-align: center;
+            border-bottom: 2px solid #333;
+            margin-bottom: 15px;
         }
         
         .header h1 {
-            font-size: 28px;
+            font-size: 22px;
             font-weight: bold;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #333;
         }
         
         .header .title {
             font-size: 14px;
-            margin-bottom: 15px;
-        }
-        
-        .header .description {
-            font-size: 11px;
-            line-height: 1.3;
-            max-width: 60%;
+            margin-bottom: 8px;
+            font-weight: normal;
+            color: #666;
         }
         
         .contact-info {
-            position: absolute;
-            right: 20px;
-            top: 20px;
             font-size: 11px;
-            text-align: right;
+            text-align: center;
+            margin-bottom: 5px;
+            line-height: 1.3;
         }
         
         .contact-info div {
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            gap: 5px;
+            margin-bottom: 1px;
+            display: inline-block;
+            margin-right: 15px;
         }
         
-        .icon {
-            width: 14px;
-            height: 14px;
-            display: inline-block;
-            fill: white;
+        .contact-info a {
+            color: #333;
+            text-decoration: underline;
+            font-weight: normal;
         }
         
         .content {
-            padding: 20px;
+            padding: 0;
         }
         
         .section {
-            margin-bottom: 25px;
+            margin-bottom: 15px;
         }
         
         .section-title {
-            color: var(--primary-color);
-            font-size: 12px;
+            color: #333;
+            font-size: 14px;
             font-weight: bold;
             text-transform: uppercase;
-            border-bottom: 1px solid var(--primary-color);
+            border-bottom: 1px solid #333;
             padding-bottom: 3px;
-            margin-bottom: 15px;
+            margin-bottom: 8px;
+            letter-spacing: 0.3px;
         }
         
-        .education-item, .experience-item {
-            margin-bottom: 15px;
+        .profile-content {
+            font-size: 11px;
+            line-height: 1.4;
+            text-align: justify;
+            color: #333;
         }
         
         .item-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 5px;
+            align-items: flex-start;
+            margin-bottom: 4px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 2px;
+        }
+        
+        .item-details {
+            display: flex;
+            flex-direction: column;
         }
         
         .item-title {
             font-weight: bold;
+            font-size: 12px;
+            color: #333;
+        }
+        
+        .item-company {
             font-size: 11px;
+            color: #666;
+            font-style: italic;
         }
         
         .item-subtitle {
             font-size: 10px;
-            color: #666;
-            font-style: italic;
+            color: #888;
+            font-style: normal;
+            margin-top: 1px;
         }
         
         .item-date {
             font-size: 10px;
             color: #666;
+            font-weight: normal;
+            white-space: nowrap;
         }
         
         .item-content {
             font-size: 10px;
             line-height: 1.3;
+            clear: both;
+            margin-left: 0;
         }
         
         .item-content ul {
             margin-left: 15px;
-            margin-top: 5px;
+            margin-top: 3px;
         }
         
         .item-content li {
             margin-bottom: 3px;
+            text-align: justify;
         }
         
-        .skills-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 15px;
+        .skills-category {
+            margin-bottom: 8px;
         }
         
-        .skill-tag {
-            background: #e0e0e0;
-            padding: 4px 8px;
-            border-radius: 3px;
-            font-size: 10px;
-            color: #666;
-        }
-        
-        .languages {
-            display: flex;
-            gap: 30px;
-            font-size: 11px;
-        }
-        
-        .download-buttons {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        
-        .view-buttons {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-        
-        .view-btn {
-            background: var(--primary-color, #cc6600);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
+        .skills-category-title {
             font-weight: bold;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
+            font-size: 11px;
+            color: #333;
+            margin-bottom: 3px;
+            text-transform: uppercase;
         }
         
-        .view-btn:hover {
-            background: var(--primary-hover, #b35900);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 8px rgba(0,0,0,0.3);
+        .skills-list {
+            font-size: 10px;
+            line-height: 1.3;
+            color: #333;
         }
         
-        .view-btn.active {
-            background: var(--primary-hover, #b35900);
-            transform: translateY(0);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-
         .cover-letter-container {
             display: none;
             max-width: 800px;
             margin: 0 auto;
             background: white;
-            border: 2px solid #ccc;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 30px;
             line-height: 1.6;
             font-family: 'Arial', sans-serif;
+            color: black;
         }
         
         .letter-header {
             text-align: right;
             margin-bottom: 30px;
             font-size: 12px;
-        }
-        
-        .letter-date {
-            margin-bottom: 20px;
         }
         
         .letter-recipient {
@@ -233,11 +208,11 @@
         
         .letter-greeting {
             margin-bottom: 20px;
-            font-size: 12px;
+            font-size: 14px;
         }
         
         .letter-body {
-            font-size: 12px;
+            font-size: 14px;
             line-height: 1.6;
             text-align: justify;
         }
@@ -248,86 +223,56 @@
         
         .letter-closing {
             margin-top: 30px;
-            font-size: 12px;
+            font-size: 14px;
         }
         
         .letter-signature {
             margin-top: 30px;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: bold;
         }
         
-        .buttons-row {
+        .download-buttons {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
         
-        .download-btn {
-            background: var(--primary-color, #d17400);
+        .view-buttons, .buttons-row {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .view-btn, .download-btn {
+            background: #333;
             color: white;
             border: none;
-            padding: 15px 25px;
-            border-radius: 8px;
+            padding: 10px 20px;
+            border-radius: 5px;
             cursor: pointer;
             font-size: 14px;
             font-weight: bold;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
+            transition: background 0.3s;
         }
         
-        .download-btn:hover {
-            background: var(--primary-hover, #b86300);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 8px rgba(0,0,0,0.3);
+        .view-btn:hover, .download-btn:hover {
+            background: #555;
         }
         
-        .color-selector {
-            background: white;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        .view-btn.active {
+            background: #555;
         }
         
-        .color-selector-title {
-            font-size: 11px;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: #333;
-        }
-        
-        .color-options {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 6px;
-        }
-        
-        .color-option {
-            width: 25px;
-            height: 25px;
-            border-radius: 4px;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: border-color 0.2s;
-        }
-        
-        .color-option:hover {
-            border-color: #333;
-        }
-        
-        .color-option.active {
-            border-color: #000;
-            box-shadow: 0 0 8px rgba(0,0,0,0.3);
-        }
-        
-        /* New section for the job link */
         .job-link-container {
             margin-top: 20px;
             padding: 20px;
-            background-color: #e9e9e9;
+            background-color: #f9f9f9;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border: 1px solid #ddd;
             text-align: center;
             display: none;
         }
@@ -335,75 +280,28 @@
         .job-link-container h3 {
             font-size: 16px;
             font-weight: bold;
-            color: #555;
-            margin-bottom: 10px;
-        }
-        
-        .job-link-container img {
-            max-width: 150px;
-            height: auto;
+            color: #333;
             margin-bottom: 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: transform 0.3s, border 0.3s; /* Añadido para el efecto */
-            border: 2px solid transparent; /* Borde transparente por defecto */
-        }
-        
-        .job-link-container img:hover {
-            transform: scale(1.1); /* Agranda la imagen al 110% */
-            border: 2px solid #047857; /* Borde verde al pasar el mouse */
         }
         
         .job-link-container a.job-btn {
             display: inline-block;
-            background: #047857;
+            background: #333;
             color: white;
             padding: 12px 20px;
-            border-radius: 8px;
+            border-radius: 5px;
             text-decoration: none;
             font-weight: bold;
-            transition: background-color 0.3s, transform 0.3s;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            transition: background-color 0.3s;
         }
         
         .job-link-container a.job-btn:hover {
-            background: #065f46;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 8px rgba(0,0,0,0.3);
+            background: #555;
         }
         
-        /* Fullscreen Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.9);
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .modal-content {
-            margin: auto;
-            display: block;
-            width: 80%;
-            max-width: 700px;
-            animation: zoom 0.6s;
-        }
-        
-        @keyframes zoom {
-            from {transform: scale(0.1)}
-            to {transform: scale(1)}
-        }
-        /* End of new section styles */
-
         @media print {
-            .download-buttons, .job-link-container, .modal {
-                display: none;
+            .download-buttons, .job-link-container {
+                display: none !important;
             }
             body {
                 background: white;
@@ -412,260 +310,183 @@
             .cv-container {
                 box-shadow: none;
                 border: none;
+                margin: 0;
+                padding: 0;
             }
-        }
-        
-        :root {
-            --primary-color: #cc6600;
-            --primary-hover: #b35900;
-            --primary-gradient-start: #cc6600;
-            --primary-gradient-end: #e67300;
         }
     </style>
 </head>
 <body>
-    <!-- Fullscreen Modal -->
-    <div id="image-modal" class="modal" onclick="closeModal()">
-        <img class="modal-content" id="modal-image">
-    </div>
-
-    <div class="download-buttons">
-        <div class="view-buttons">
-            <button class="view-btn active" onclick="showCV()">Ver CV</button>
-            <button class="view-btn" onclick="showCoverLetter()">Ver Cover Letter</button>
-        </div>
-    
-        <div class="color-selector">
-            <div class="color-selector-title">Seleccionar Color</div>
-            <div class="color-options">
-                <div class="color-option active" style="background-color: #cc6600" 
-                    data-primary="#cc6600" data-hover="#b35900" data-start="#cc6600" data-end="#e67300" 
-                    title="Naranja Profesional"></div>
-                <div class="color-option" style="background-color: #2c5aa0" 
-                    data-primary="#2c5aa0" data-hover="#1e3f73" data-start="#2c5aa0" data-end="#4472c4" 
-                    title="Azul Corporativo"></div>
-                <div class="color-option" style="background-color: #2d5016" 
-                    data-primary="#2d5016" data-hover="#1a2f0b" data-start="#2d5016" data-end="#4a7c59" 
-                    title="Verde Profesional"></div>
-                <div class="color-option" style="background-color: #c41e3a" 
-                    data-primary="#c41e3a" data-hover="#9c1529" data-start="#c41e3a" data-end="#dc2626" 
-                    title="Rojo Corporativo"></div>
-                <div class="color-option" style="background-color: #663399" 
-                    data-primary="#663399" data-hover="#4c2673" data-start="#663399" data-end="#8b5cf6" 
-                    title="Púrpura"></div>
-                <div class="color-option" style="background-color: #1e3a8a" 
-                    data-primary="#1e3a8a" data-hover="#1e293b" data-start="#1e3a8a" data-end="#3b82f6" 
-                    title="Azul Marino"></div>
-                <div class="color-option" style="background-color: #047857" 
-                    data-primary="#047857" data-hover="#065f46" data-start="#047857" data-end="#10b981" 
-                    title="Verde Esmeralda"></div>
-                <div class="color-option" style="background-color: #991b1b" 
-                    data-primary="#991b1b" data-hover="#7f1d1d" data-start="#991b1b" data-end="#ef4444" 
-                    title="Granate"></div>
-                <div class="color-option" style="background-color: #475569" 
-                    data-primary="#475569" data-hover="#334155" data-start="#475569" data-end="#64748b" 
-                    title="Azul Acero"></div>
-                <div class="color-option" style="background-color: #374151" 
-                    data-primary="#374151" data-hover="#1f2937" data-start="#374151" data-end="#6b7280" 
-                    title="Gris Oscuro"></div>
-            </div>
-        </div>
-        <div class="buttons-row">
-            <button class="download-btn" onclick="downloadAsPDF()">Descargar PDF</button>
-        </div>
-        <div class="job-link-container" id="job-link-container">
-            <h3>Enlace de la vacante</h3>
-            <img src="assets/Afirma.png" alt="Afirma Solutions logo" onclick="openModal('assets/Afirma.png')">
-            <a href="https://www.glassdoor.com.mx/job-listing/data-analyst-power-bi-afirma-solutions-JV_KO0,21_KE22,38.htm?jl=1009873612255&cs=1_e6d2005d&s=269&t=NS&pos=101&src=GD_JOB_AD&guid=0000019965f7e00d864f3de45b387156&uido=70ECC429928706FCDED185701223B613&jobListingId=1009873612255&ea=1&ao=1136043&vt=w&cb=1758352367753&ctt=1758352382694" target="_blank" class="job-btn">Ver en Glassdoor</a>
-        </div>
-    </div>
-    
+    <!-- CV Version -->
     <div class="cv-container" id="cv-content">
         <div class="header">
             <h1>Baltazar Dimayuga</h1>
-            <div class="title">Analista de Datos</div>
-            <div class="description">
-                Analista de Datos e Ingeniero en Computación con sólida experiencia en desarrollo web y gestión de datos, especializado en transformar información compleja en insights accionables mediante Python, SQL y herramientas de visualización para el sector tecnológico.
-            </div>
-            
+            <div class="title">Data Analyst Jr | Business Intelligence</div>
             <div class="contact-info">
-                <div>
-                    <svg class="icon" viewBox="0 0 24 24">
-                        <path d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z"/>
-                    </svg>
-                    (+52) 747 155 8247
-                </div>
-                <div>
-                    <svg class="icon" viewBox="0 0 24 24">
-                        <path d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z"/>
-                    </svg>
-                    baltazardv13@gmail.com
-                </div>
-                <div>
-                    <svg class="icon" viewBox="0 0 24 24">
-                        <path d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z"/>
-                    </svg>
-                    Guerrero, México
-                </div>
-                <div>
-                    <svg class="icon" viewBox="0 0 24 24">
-                        <path d="M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z"/>
-                    </svg>
-                    github.com/BaltazarDV
-                </div>
-                <div>
-                    <svg class="icon" viewBox="0 0 24 24">
-                        <path d="M19,3A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,3H19M18.5,18.5V13.2A3.26,3.26 0 0,0 15.24,9.94C14.39,9.94 13.4,10.46 12.92,11.24V10.13H10.13V18.5H12.92V13.57C12.92,12.8 13.54,12.17 14.31,12.17A1.4,1.4 0 0,1 15.71,13.57V18.5H18.5M6.88,8.56A1.68,1.68 0 0,0 8.56,6.88C8.56,5.95 7.81,5.19 6.88,5.19A1.69,1.69 0 0,0 5.19,6.88C5.19,7.81 5.95,8.56 6.88,8.56M8.27,18.5V10.13H5.5V18.5H8.27Z"/>
-                    </svg>
-                    www.linkedin.com/in/baltazar-dimayuga-4000a2293
-                </div>
+                <div>Teléfono: (+52) 747 155 8247</div>
+                <div>Email: <a href="mailto:baltazardv13@gmail.com">baltazardv13@gmail.com</a></div>
+                <div>Ubicación: Guerrero, México</div>
+                <div>GitHub: <a href="https://github.com/BaltazarDV" target="_blank">github.com/BaltazarDV</a></div>
+                <div>LinkedIn: <a href="https://www.linkedin.com/in/baltazar-dimayuga-4000a2293" target="_blank">linkedin.com/in/baltazar-dimayuga</a></div>
             </div>
         </div>
         
         <div class="content">
             <div class="section">
-                <h2 class="section-title">Educación</h2>
-                
-                <div class="education-item">
-                    <div class="item-header">
-                        <div>
-                            <div class="item-title">Bootcamp Analista de Datos, TripleTen</div>
-                            <div class="item-subtitle">Programa intensivo de análisis de datos</div>
-                        </div>
-                        <div class="item-date">(En curso - 2025)</div>
-                    </div>
-                </div>
-                
-                <div class="education-item">
-                    <div class="item-header">
-                        <div>
-                            <div class="item-title">Ing. en Computación, Universidad Autónoma de Guerrero</div>
-                            <div class="item-subtitle">Titulado</div>
-                        </div>
-                        <div class="item-date">(Feb 2018 - May 2023)</div>
-                    </div>
-                </div>
-                
-                <div style="font-size: 10px; font-weight: bold; margin-top: 15px;">Proyectos Profesionales</div>
-                <div class="item-content">
-                    <ul>
-                        <li>Análisis de Éxito de Videojuegos: Identifiqué factores clave mediante EDA y pruebas de hipótesis (Python, Pandas, Matplotlib).</li>
-                        <li>GymSpot - Aplicación Web: Desarrollé plataforma para localización de gimnasios con filtrado avanzado (JavaScript, HTML5, CSS3).</li>
-                        <li>Sistema de Gestión para Gimnasio: Implementé sistema completo optimizando operaciones para +100 usuarios (Java, MySQL).</li>
-                    </ul>
+                <h2 class="section-title">Perfil Profesional</h2>
+                <div class="profile-content">
+                    Analista de Datos Jr e Ingeniero en Computación especializado en Python, SQL, Power BI y visualización de datos. Experiencia comprobada en automatización de procesos (reducción del 40% en tiempos), optimización técnica (disminución del 20% en incidencias) y crecimiento empresarial (incremento del 60% en ventas). Busco aplicar mis habilidades analíticas como Data Analyst Jr para generar valor empresarial mediante Business Intelligence.
                 </div>
             </div>
-            
+
             <div class="section">
-                <h2 class="section-title">Experiencia</h2>
+                <h2 class="section-title">Habilidades Técnicas e Idiomas</h2>
+                
+                <div class="skills-category">
+                    <div class="skills-category-title">Análisis de Datos y BI</div>
+                    <div class="skills-list">Python (Avanzado) • SQL (Avanzado) • Pandas/NumPy (Avanzado) • Power BI (Intermedio) • Tableau (Básico) • Excel Avanzado • Matplotlib/Seaborn • EDA • Pruebas de Hipótesis</div>
+                </div>
+                
+                <div class="skills-category">
+                    <div class="skills-category-title">Bases de Datos y Herramientas</div>
+                    <div class="skills-list">MySQL (Avanzado) • PostgreSQL (Básico) • Modelado de Datos • Git/GitHub • Jupyter Notebooks • APIs REST</div>
+                </div>
+                
+                <div class="skills-category">
+                    <div class="skills-category-title">Complementarias</div>
+                    <div class="skills-list">JavaScript • PHP • HTML5/CSS3 • Shopify • Español (Nativo) • Inglés (Profesional-Avanzado)</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Experiencia Profesional</h2>
                 
                 <div class="experience-item">
                     <div class="item-header">
-                        <div class="item-title">OK Latino - Desarrollador Web</div>
-                        <div class="item-date">Junio 2025 - actual</div>
+                        <div class="item-details">
+                            <div class="item-title">Desarrollador Web</div>
+                            <div class="item-company">OK Latino | Ciudad de México</div>
+                        </div>
+                        <div class="item-date">Jun 2025 - Presente</div>
                     </div>
-                    <div class="item-subtitle">Desarrollo Front-End</div>
                     <div class="item-content">
                         <ul>
-                            <li>Desarrollé sitios web y plataformas e-commerce para múltiples sectores: deportes (Kings League Americas), retail (Big and Tall), viajes (Imperial Fly) y hospedaje (Otto Vacational Rentals).</li>
-                            <li>Implementé soluciones completas con HTML, CSS, JavaScript y Shopify, optimizando UX y presencia digital.</li>
-                            <li>Aplicó metodologías ágiles y control de versiones con Git/GitHub en todos los proyectos.</li>
+                            <li>Desarrollé +5 sitios e-commerce (Kings League Americas, Big and Tall) optimizando UX y reduciendo tiempos de carga 25%</li>
+                            <li>Implementé soluciones con HTML5, CSS3, JavaScript y Shopify aplicando metodologías ágiles</li>
                         </ul>
                     </div>
                 </div>
                 
                 <div class="experience-item">
                     <div class="item-header">
-                        <div class="item-title">Instituto Mejoramiento Judicial - Colaborador TI</div>
+                        <div class="item-details">
+                            <div class="item-title">Colaborador TI</div>
+                            <div class="item-company">Instituto Mejoramiento Judicial | Guerrero</div>
+                        </div>
                         <div class="item-date">Jul 2022 - Ago 2023</div>
                     </div>
-                    <div class="item-subtitle">Soporte Técnico y Desarrollo</div>
                     <div class="item-content">
                         <ul>
-                            <li>Gestioné procesos audiovisuales para +150 audiencias garantizando operación continua.</li>
-                            <li>Reduje incidencias técnicas en 20% mediante mantenimiento preventivo de hardware.</li>
-                            <li>Desarrollé aplicaciones PHP para automatización de procesos internos.</li>
+                            <li>Gestioné procesos audiovisuales para +150 audiencias mensuales sin interrupciones críticas</li>
+                            <li>Reduje incidencias técnicas 20% implementando mantenimiento preventivo sistemático</li>
+                            <li>Automaticé procesos desarrollando 3 aplicaciones PHP, reduciendo tiempo de gestión manual 40%</li>
                         </ul>
                     </div>
                 </div>
                 
                 <div class="experience-item">
                     <div class="item-header">
-                        <div class="item-title">Pachateca - Soporte TI y Ventas</div>
+                        <div class="item-details">
+                            <div class="item-title">Soporte TI y Ventas</div>
+                            <div class="item-company">Pachateca | Guerrero</div>
+                        </div>
                         <div class="item-date">Jul 2017 - Feb 2020</div>
                     </div>
-                    <div class="item-subtitle">Soporte Técnico y Gestión Comercial</div>
                     <div class="item-content">
                         <ul>
-                            <li>Proporcioné soporte técnico a +50 clientes/semana solucionando problemas de hardware/software.</li>
-                            <li>Contribuí al crecimiento de ventas del 60% mediante gestión estratégica de inventario.</li>
+                            <li>Soporte técnico a +50 clientes semanalmente con 95% satisfacción</li>
+                            <li>Contribuí al crecimiento de ventas 60% mediante análisis estratégico de inventario</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Proyectos Destacados</h2>
+                
+                <div class="project-item">
+                    <div class="item-header">
+                        <div class="item-details">
+                            <div class="item-title">Análisis de Factores de Éxito en Videojuegos</div>
+                            <div class="item-subtitle">EDA y Pruebas de Hipótesis - Data Analytics (2025)</div>
+                        </div>
+                    </div>
+                    <div class="item-content">
+                        <ul>
+                            <li><strong>Problema:</strong> Identificar factores clave para optimizar estrategias de lanzamiento</li>
+                            <li><strong>Dataset:</strong> +16,000 registros de ventas (1980-2016) | <strong>Stack:</strong> Python, Pandas, NumPy, Matplotlib, Seaborn</li>
+                            <li><strong>Resultado:</strong> Identifiqué géneros con 15% mayor probabilidad de éxito + dashboard Power BI con DAX | <a href="https://github.com/Baltazardv/Ice-Online-Store" target="_blank">GitHub</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="project-item">
+                    <div class="item-header">
+                        <div class="item-details">
+                            <div class="item-title">GymSpot - Aplicación de Localización</div>
+                            <div class="item-subtitle">Full-Stack Development (2023)</div>
+                        </div>
+                    </div>
+                    <div class="item-content">
+                        <ul>
+                            <li><strong>Problema:</strong> Localización de gimnasios con filtrado avanzado | <strong>Usuarios:</strong> +100 beta testers</li>
+                            <li><strong>Stack:</strong> JavaScript ES6, APIs geolocalización | <strong>Resultado:</strong> Reducción 50% tiempo búsqueda | <a href="https://github.com/Baltazardv/ProyectoGymSpot" target="_blank">GitHub</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
             
             <div class="section">
-                <h2 class="section-title">Habilidades Técnicas</h2>
+                <h2 class="section-title">Educación y Certificaciones</h2>
                 
-                <div class="skills-grid">
-                    <span class="skill-tag">Python</span>
-                    <span class="skill-tag">SQL</span>
-                    <span class="skill-tag">Pandas</span>
-                    <span class="skill-tag">NumPy</span>
-                    <span class="skill-tag">Matplotlib</span>
-                    <span class="skill-tag">Seaborn</span>
-                    <span class="skill-tag">Tableau</span>
-                    <span class="skill-tag">Power BI</span>
-                    <span class="skill-tag">Excel Avanzado</span>
-                </div>
-                
-                <div class="skills-grid">
-                    <span class="skill-tag">JavaScript</span>
-                    <span class="skill-tag">HTML5</span>
-                    <span class="skill-tag">CSS3</span>
-                    <span class="skill-tag">PHP</span>
-                    <span class="skill-tag">Java</span>
-                    <span class="skill-tag">MySQL</span>
-                    <span class="skill-tag">Git</span>
-                    <span class="skill-tag">GitHub</span>
-                    <span class="skill-tag">Shopify</span>
+                <div class="education-item">
+                    <div class="item-header">
+                        <div class="item-details">
+                            <div class="item-title">Bootcamp Analista de Datos</div>
+                            <div class="item-company">TripleTen</div>
+                        </div>
+                        <div class="item-date">En curso (2025)</div>
+                    </div>
+                    <div class="item-content">
+                        <ul>
+                            <li>EDA, SQL avanzado, Python/Pandas, Power BI, dashboards, hipótesis estadísticas, storytelling con KPIs</li>
+                        </ul>
+                    </div>
                 </div>
                 
-                <div class="skills-grid">
-                    <span class="skill-tag">Business Intelligence</span>
-                    <span class="skill-tag">Análisis Estadístico</span>
-                    <span class="skill-tag">EDA</span>
-                    <span class="skill-tag">Jupyter Notebooks</span>
-                    <span class="skill-tag">APIs</span>
+                <div class="education-item">
+                    <div class="item-header">
+                        <div class="item-details">
+                            <div class="item-title">Ingeniería en Computación</div>
+                            <div class="item-company">Universidad Autónoma de Guerrero</div>
+                        </div>
+                        <div class="item-date">Feb 2018 - May 2023</div>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="section">
-                <h2 class="section-title">Idiomas</h2>
-                <div class="languages">
-                    <span><strong>Español:</strong> Nativo</span>
-                    <span><strong>Inglés:</strong> Profesional-Avanzado</span>
-                </div>
-            </div>
-            
-            <div class="section">
-                <h2 class="section-title">Otros</h2>
+                
                 <div class="item-content">
-                    <div style="margin-bottom: 8px;"><strong>Certificaciones:</strong></div>
                     <ul>
-                        <li>Python Essentials 1 & 2 - CISCO (Mayo 2023)</li>
-                        <li>Curso Profesional de Front-End - Código Facilito (Oct 2023)</li>
-                        <li>Fundamentos de Seguridad de Red y Ciberseguridad - Palo Alto (Abr 2022)</li>
-                        <li>CCNAv7: Introducción a las Redes - CISCO (Mayo 2021)</li>
+                        <li><strong>Certificaciones:</strong> Python Essentials 1&2 (CISCO) • Front-End Profesional (Código Facilito) • Seguridad de Red (Palo Alto)</li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
     
+    <!-- Cover Letter Version -->
     <div class="cover-letter-container" id="cover-letter-content">
         <div class="letter-header">
-            <div class="letter-date">Guerrero, México<br>20 de septiembre de 2025</div>
+            <div class="letter-date">Guerrero, México<br>23 de septiembre de 2025</div>
         </div>
         
         <div class="letter-recipient">
@@ -675,26 +496,25 @@
         </div>
         
         <div class="letter-greeting">
-            Estimados colaboradores de Afirma Solutions:
+            Estimado equipo de reclutamiento:
         </div>
         
         <div class="letter-body">
-            <p>Me dirijo a ustedes para expresar mi interés en la posición de <strong>Data Analyst (Power BI)</strong> que han publicado. Como Ingeniero en Computación titulado por la Universidad Autónoma de Guerrero y actualmente especializándome en análisis de datos a través del bootcamp de TripleTen, considero que mi perfil técnico y mi enfoque hacia la inteligencia de negocios pueden aportar valor significativo a su equipo.</p>
+            <p>Me dirijo a ustedes para expresar mi interés en la posición de <strong>Data Analyst (Power BI)</strong> (ID: 1009873612255) publicada en Glassdoor. Como Ingeniero en Computación titulado con especialización actual en análisis de datos y experiencia práctica en <strong>SQL avanzado, Python, Power BI, modelado de datos y desarrollo de medidas DAX</strong>, considero que mi perfil técnico y mi enfoque hacia la inteligencia de negocios pueden aportar valor significativo a Afirma Solutions.</p>
             
-            <p>Mi formación académica en Ingeniería en Computación me ha proporcionado una base sólida en el manejo de tecnologías y metodologías que son fundamentales para el análisis de datos. Durante mi trayectoria profesional, he desarrollado experiencia práctica con <strong>Python para automatización y análisis</strong>, <strong>SQL para gestión de bases de datos</strong>, y <strong>herramientas de visualización como Power BI y Tableau</strong>. Además, manejo Excel a nivel avanzado y tengo experiencia en el desarrollo de aplicaciones web y sistemas de gestión.</p>
+            <p>Mi formación académica en Ingeniería en Computación me ha proporcionado una base sólida en tecnologías fundamentales para el análisis de datos. Actualmente completo mi especialización en Data Analytics en TripleTen, donde he profundizado en <strong>análisis exploratorio de datos (EDA), limpieza y transformación de datasets, desarrollo de medidas DAX avanzadas, modelado estrella, SQL complejas y storytelling con KPIs empresariales</strong>. Como ejemplo concreto, desarrollé un proyecto de análisis de factores de éxito en la industria de videojuegos donde apliqué Python (Pandas, NumPy, Matplotlib) para analizar +16,000 registros, creé un dashboard interactivo en Power BI con medidas DAX personalizadas que identificó géneros con +15% mayor probabilidad de éxito comercial, y desarrollé filtros dinámicos para visualizar patrones de ventas regionales que facilitaron la toma de decisiones estratégicas basadas en datos.</p>
             
-            <p>Actualmente estoy completando un bootcamp especializado en análisis de datos donde he profundizado en técnicas de <strong>análisis exploratorio de datos (EDA)</strong>, <strong>limpieza y transformación de datos</strong>, y <strong>desarrollo de insights accionables para la toma de decisiones empresariales</strong>. Mi proyecto más reciente involucró el análisis de factores de éxito en la industria de videojuegos, donde apliqué Python, pandas, matplotlib y técnicas estadísticas para generar recomendaciones estratégicas basadas en datos.</p>
+            <p>En términos de experiencia práctica, he automatizado procesos empresariales mediante desarrollo de aplicaciones que redujeron 40% el tiempo de gestión manual, gestioné procesos técnicos para +150 operaciones mensuales sin interrupciones críticas, y contribuí a un crecimiento de ventas del 60% mediante análisis estratégico de inventario y optimización de rotación de productos. Esta experiencia me ha enseñado la importancia de traducir datos complejos en insights accionables para la toma de decisiones ejecutivas.</p>
             
-            <p>Aunque mi experiencia específica en análisis de datos se está consolidando a través de mi formación especializada actual, traigo una perspectiva valiosa desde el desarrollo tecnológico y la gestión de procesos. En mis roles anteriores, he automatizado procesos mediante aplicaciones PHP, optimizado sistemas digitales, y gestionado proyectos que han resultado en mejoras cuantificables como la reducción del 20% en incidencias técnicas y contribuciones al crecimiento de ventas del 60%.</p>
+            <p>Me atrae particularmente Afirma Solutions por su especialización en <strong>consultoría tecnológica y financiera</strong>, sectores donde el análisis de datos es crucial para optimizar operaciones, identificar oportunidades de crecimiento y desarrollar estrategias basadas en Business Intelligence. Su enfoque en <strong>transformación digital, DevSecOps y Big Data</strong> se alinea perfectamente con mi objetivo profesional de aplicar análisis avanzado de datos para generar valor empresarial. Además, valoro el <strong>esquema híbrido</strong> que ofrecen, ya que me permitiría equilibrar el trabajo colaborativo presencial con la flexibilidad del trabajo remoto, y confirmo mi disponibilidad para viajar mensualmente a las instalaciones según las necesidades del proyecto.</p>
             
-            <p>Me atrae particularmente la oportunidad de trabajar en Afirma Solutions por su enfoque en consultoría tecnológica y financiera. Valoro el <strong>esquema híbrido</strong> que ofrecen, ya que me permitiría equilibrar el trabajo colaborativo presencial con la flexibilidad del trabajo remoto. Además, mi disponibilidad para viajar a Querétaro mensualmente demuestra mi compromiso con las necesidades del proyecto.</p>
+            <p>Mi experiencia técnica incluye el dominio de <strong>SQL para consultas complejas y optimización de bases de datos, Python para análisis estadístico avanzado, Power BI para desarrollo de dashboards ejecutivos, y modelado de datos relacionales</strong>. Además, mi background en desarrollo web me ha proporcionado habilidades complementarias en APIs REST y gestión de datos que son valiosas para integración de sistemas y automatización de procesos de ETL.</p>
             
-            <p>Estoy entusiasmado por la posibilidad de aplicar mis conocimientos técnicos en un entorno empresarial dinámico y contribuir al crecimiento de sus proyectos de análisis de datos. Mi enfoque de <strong>autogestión</strong>, <strong>comunicación efectiva</strong> y <strong>orientación hacia resultados de negocio</strong> me permitirá integrarme exitosamente a su equipo.</p>
-            
+            <p>Estoy entusiasmado por la oportunidad de aplicar mis conocimientos en <strong>análisis de datos, Power BI, SQL avanzado y modelado estrella</strong> en un entorno empresarial dinámico como Afirma Solutions. Mi enfoque de autogestión, comunicación efectiva y orientación hacia resultados de negocio me permitirá integrarme exitosamente a su equipo y contribuir al crecimiento de sus proyectos de Business Intelligence y transformación digital.</p>
         </div>
         
         <div class="letter-closing">
-            Sin más por el momento, agradezco su tiempo y consideración. Quedo a la espera de la oportunidad de conversar sobre cómo puedo contribuir al éxito de Afirma Solutions.
+            Sin más por el momento, agradezco su tiempo y consideración. Quedo a la espera de la oportunidad de conversar sobre cómo puedo contribuir al éxito de Afirma Solutions aportando valor mediante análisis de datos avanzado y Business Intelligence.
         </div>
         
         <div class="letter-signature">
@@ -702,131 +522,158 @@
             <strong>Baltazar Dimayuga</strong><br>
             Tel: (+52) 747 155 8247<br>
             Email: baltazardv13@gmail.com<br>
-            LinkedIn: www.linkedin.com/in/baltazar-dimayuga-4000a2293
+            LinkedIn: www.linkedin.com/in/baltazar-dimayuga-4000a2293<br>
+            GitHub: github.com/BaltazarDV
         </div>
     </div>
     
-    <script>
-        // Variables globales para el color actual
-        let currentColor = {
-            primary: '#cc6600',
-            hover: '#b35900',
-            gradientStart: '#cc6600',
-            gradientEnd: '#e67300'
-        };
+    <!-- Información de la vacante -->
+    <div class="download-buttons">
+        <div class="view-buttons">
+            <button class="view-btn active" onclick="showCV()">Ver CV</button>
+            <button class="view-btn" onclick="showCoverLetter()">Ver Cover Letter</button>
+        </div>
         
-        // Función para mostrar el CV y ocultar la Cover Letter
+        <div class="buttons-row">
+            <button class="download-btn" onclick="downloadAsPDF()">Descargar PDF</button>
+            <button class="download-btn" onclick="downloadAsDOCX()">Descargar DOCX</button>
+        </div>
+        
+        <div class="job-link-container" id="job-link-container">
+            <h3>Información de la Vacante</h3>
+            <p><strong>Empresa:</strong> Afirma Solutions</p>
+            <p><strong>Posición:</strong> Data Analyst (Power BI)</p>
+            <p><strong>ID de Vacante:</strong> 1009873612255</p>
+            <p><strong>Fuente:</strong> Glassdoor México</p>
+            <br>
+            <a href="https://www.glassdoor.com.mx/job-listing/data-analyst-power-bi-afirma-solutions-JV_KO0,21_KE22,38.htm?jl=1009873612255" target="_blank" class="job-btn">Ver Vacante en Glassdoor</a>
+        </div>
+    </div>
+
+    <script>
         function showCV() {
             document.getElementById('cv-content').style.display = 'block';
             document.getElementById('cover-letter-content').style.display = 'none';
             document.getElementById('job-link-container').style.display = 'none';
-            // Actualizar la clase activa en los botones de vista
             document.querySelector('.view-btn:nth-of-type(1)').classList.add('active');
             document.querySelector('.view-btn:nth-of-type(2)').classList.remove('active');
         }
         
-        // Función para mostrar la Cover Letter y ocultar el CV
         function showCoverLetter() {
             document.getElementById('cv-content').style.display = 'none';
             document.getElementById('cover-letter-content').style.display = 'block';
             document.getElementById('job-link-container').style.display = 'block';
-            // Actualizar la clase activa en los botones de vista
             document.querySelector('.view-btn:nth-of-type(1)').classList.remove('active');
             document.querySelector('.view-btn:nth-of-type(2)').classList.add('active');
         }
-        
-        // Modal functions
-        function openModal(imageSrc) {
-            const modal = document.getElementById('image-modal');
-            const modalImage = document.getElementById('modal-image');
-            modal.style.display = 'flex';
-            modalImage.src = imageSrc;
-        }
 
-        function closeModal() {
-            const modal = document.getElementById('image-modal');
-            modal.style.display = 'none';
-        }
-
-        // Inicializar selector de colores
-        document.addEventListener('DOMContentLoaded', function() {
-            const colorOptions = document.querySelectorAll('.color-option');
-            colorOptions.forEach(option => {
-                option.addEventListener('click', function() {
-                    // Remover clase activa de todas las opciones
-                    colorOptions.forEach(opt => opt.classList.remove('active'));
-                    // Añadir clase activa a la opción seleccionada
-                    this.classList.add('active');
-                    
-                    // Obtener colores del elemento seleccionado
-                    currentColor = {
-                        primary: this.dataset.primary,
-                        hover: this.dataset.hover,
-                        gradientStart: this.dataset.start,
-                        gradientEnd: this.dataset.end
-                    };
-                    
-                    // Aplicar colores
-                    changeThemeColor();
-                });
-            });
-        });
-        
-        function changeThemeColor() {
-            const root = document.documentElement;
-            root.style.setProperty('--primary-color', currentColor.primary);
-            root.style.setProperty('--primary-hover', currentColor.hover);
-            root.style.setProperty('--primary-gradient-start', currentColor.gradientStart);
-            root.style.setProperty('--primary-gradient-end', currentColor.gradientEnd);
-        }
-        
         function downloadAsPDF() {
-            // Check if the current view is CV or Cover Letter
             const isCV = document.getElementById('cv-content').style.display !== 'none';
-            const contentToPrint = isCV ? 'cv-content' : 'cover-letter-content';
-            const fileName = isCV ? 'CV_Baltazar_Dimayuga.pdf' : 'Cover_Letter_Baltazar_Dimayuga.pdf';
-
-            const { jsPDF } = window.jspdf;
-            const contentElement = document.getElementById(contentToPrint);
+            const fileName = isCV ? 'CV_Baltazar_Dimayuga_ATS.pdf' : 'Cover_Letter_Baltazar_Dimayuga_Afirma.pdf';
+        
+            const contentElement = isCV ? document.getElementById('cv-content') : document.getElementById('cover-letter-content');
             
-            // Configurar opciones para html2canvas
-            const options = {
+            html2canvas(contentElement, {
                 scale: 2,
                 useCORS: true,
                 allowTaint: true,
                 backgroundColor: '#ffffff',
-                width: contentElement.offsetWidth,
-                height: contentElement.offsetHeight
-            };
-            
-            html2canvas(contentElement, options).then(canvas => {
+                width: 800,
+                height: contentElement.scrollHeight
+            }).then(canvas => {
                 const imgData = canvas.toDataURL('image/png');
+                const { jsPDF } = window.jspdf;
                 const pdf = new jsPDF('p', 'mm', 'a4');
-                
-                const imgWidth = 210; // A4 width in mm
-                const pageHeight = 295; // A4 height in mm
+                const pdfWidth = 210;
+                const pdfHeight = 297;
+                const imgWidth = pdfWidth - 20;
                 const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        
                 let heightLeft = imgHeight;
-                
-                let position = 0;
-                
-                // Añadir primera página
-                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-                heightLeft -= pageHeight;
-                
-                // Si el contenido es más alto que una página, añadir páginas adicionales
-                while (heightLeft >= 0) {
-                    position = heightLeft - imgHeight;
+                let position = 10;
+        
+                pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+                heightLeft -= (pdfHeight - 20);
+        
+                while (heightLeft > 0) {
+                    position = -(pdfHeight - 20) - position;
                     pdf.addPage();
-                    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-                    heightLeft -= pageHeight;
+                    pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+                    heightLeft -= (pdfHeight - 20);
                 }
-                
+        
                 pdf.save(fileName);
             }).catch(error => {
-                console.error('Error al generar PDF:', error);
+                console.error('Error generating PDF:', error);
             });
         }
+
+        function downloadAsDOCX() {
+            const isCV = document.getElementById('cv-content').style.display !== 'none';
+            const fileName = isCV ? 'CV_Baltazar_Dimayuga_ATS.doc' : 'Cover_Letter_Baltazar_Dimayuga_Afirma.doc';
+
+            const contentElement = isCV ? document.getElementById('cv-content') : document.getElementById('cover-letter-content');
+            const textContent = extractFormattedTextForDOC(contentElement);
+
+            const blob = new Blob([textContent], {
+                type: 'application/msword;charset=utf-8'
+            });
+
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+        
+        function extractFormattedTextForDOC(element) {
+            let text = '';
+            const walkNodes = (node) => {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    const content = node.textContent.trim();
+                    if (content) {
+                        text += content + ' ';
+                    }
+                } else if (node.nodeType === Node.ELEMENT_NODE) {
+                    const tagName = node.tagName.toLowerCase();
+                    const classList = node.classList;
+        
+                    if (tagName === 'h1') {
+                        text += '\n\n' + node.textContent.toUpperCase().trim() + '\n';
+                        text += '='.repeat(node.textContent.length) + '\n\n';
+                    } else if (classList.contains('section-title') || tagName === 'h2') {
+                        text += '\n\n' + node.textContent.toUpperCase().trim() + '\n';
+                        text += '-'.repeat(node.textContent.length) + '\n';
+                    } else if (classList.contains('item-title')) {
+                        text += '\n' + node.textContent.trim() + '\n';
+                    } else if (classList.contains('item-company')) {
+                        text += node.textContent.trim() + '\n';
+                    } else if (classList.contains('item-date')) {
+                        text += node.textContent.trim() + '\n';
+                    } else if (tagName === 'li') {
+                        text += '  • ' + node.textContent.trim() + '\n';
+                    } else if (tagName === 'a' && node.href) {
+                        text += node.textContent.trim() + ' (' + node.href + ') ';
+                    } else if (tagName === 'p') {
+                        text += '\n' + node.textContent.trim() + '\n';
+                    } else {
+                        for (let child of node.childNodes) {
+                            walkNodes(child);
+                        }
+                    }
+                }
+            };
+            walkNodes(element);
+            return text.replace(/\n\s*\n\s*/g, '\n\n').trim();
+        }
+
+        // Initialize CV view on load
+        document.addEventListener('DOMContentLoaded', function() {
+            showCV();
+        });
     </script>
 </body>
 </html>
