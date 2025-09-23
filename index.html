@@ -570,42 +570,354 @@
         function downloadAsPDF() {
             const isCV = document.getElementById('cv-content').style.display !== 'none';
             const fileName = isCV ? 'CV_Baltazar_Dimayuga_ATS.pdf' : 'Cover_Letter_Baltazar_Dimayuga_Afirma.pdf';
-        
-            const contentElement = isCV ? document.getElementById('cv-content') : document.getElementById('cover-letter-content');
             
-            html2canvas(contentElement, {
-                scale: 2,
-                useCORS: true,
-                allowTaint: true,
-                backgroundColor: '#ffffff',
-                width: 800,
-                height: contentElement.scrollHeight
-            }).then(canvas => {
-                const imgData = canvas.toDataURL('image/png');
-                const { jsPDF } = window.jspdf;
-                const pdf = new jsPDF('p', 'mm', 'a4');
-                const pdfWidth = 210;
-                const pdfHeight = 297;
-                const imgWidth = pdfWidth - 20;
-                const imgHeight = (canvas.height * imgWidth) / canvas.width;
-        
-                let heightLeft = imgHeight;
-                let position = 10;
-        
-                pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
-                heightLeft -= (pdfHeight - 20);
-        
-                while (heightLeft > 0) {
-                    position = -(pdfHeight - 20) - position;
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            
+            // Configuración inicial redistribuida
+            let yPos = 20;
+            const margin = 20;
+            const pageWidth = 210;
+            const pageHeight = 297;
+            const maxWidth = pageWidth - (margin * 2);
+            const bottomMargin = 15;
+            
+            // Función para verificar y agregar nueva página si es necesario
+            function checkAndAddPage(spaceNeeded = 12) {
+                if (yPos + spaceNeeded > pageHeight - bottomMargin) {
                     pdf.addPage();
-                    pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
-                    heightLeft -= (pdfHeight - 20);
+                    yPos = 20;
+                    return true;
                 }
-        
-                pdf.save(fileName);
-            }).catch(error => {
-                console.error('Error generating PDF:', error);
-            });
+                return false;
+            }
+            
+            if (isCV) {
+                // Header con mejor espaciado
+                pdf.setFontSize(18);
+                pdf.setFont(undefined, 'bold');
+                pdf.text('BALTAZAR DIMAYUGA', pageWidth/2, yPos, { align: 'center' });
+                yPos += 8;
+                
+                pdf.setFontSize(12);
+                pdf.setFont(undefined, 'normal');
+                pdf.text('Data Analyst Jr | Business Intelligence', pageWidth/2, yPos, { align: 'center' });
+                yPos += 10;
+                
+                // Contacto
+                pdf.setFontSize(9);
+                pdf.setFont(undefined, 'normal');
+                
+                // Primera línea de contacto
+                const contactLine1 = 'Teléfono: (+52) 747 155 8247  Email: ';
+                const emailText = 'baltazardv13@gmail.com';
+                const locationText = '  Ubicación: Guerrero, México';
+                
+                const line1Y = yPos;
+                pdf.text(contactLine1, pageWidth/2 - 85, line1Y);
+                
+                // Email clickeable
+                pdf.setTextColor(0, 0, 255);
+                pdf.text(emailText, pageWidth/2 - 25, line1Y);
+                pdf.link(pageWidth/2 - 25, line1Y - 2, 45, 4, {url: 'mailto:baltazardv13@gmail.com'});
+                pdf.setTextColor(0, 0, 0);
+                
+                pdf.text(locationText, pageWidth/2 + 20, line1Y);
+                yPos += 4;
+                
+                // Segunda línea de contacto
+                const githubLabel = 'GitHub: ';
+                const githubLink = 'github.com/BaltazarDV';
+                const linkedinLabel = '  LinkedIn: ';
+                const linkedinLink = 'linkedin.com/in/baltazar-dimayuga';
+                
+                const line2Y = yPos;
+                pdf.text(githubLabel, pageWidth/2 - 60, line2Y);
+                
+                // GitHub clickeable
+                pdf.setTextColor(0, 0, 255);
+                pdf.text(githubLink, pageWidth/2 - 45, line2Y);
+                pdf.link(pageWidth/2 - 45, line2Y - 2, 40, 4, {url: 'https://github.com/BaltazarDV'});
+                pdf.setTextColor(0, 0, 0);
+                
+                pdf.text(linkedinLabel, pageWidth/2 - 5, line2Y);
+                
+                // LinkedIn clickeable
+                pdf.setTextColor(0, 0, 255);
+                pdf.text(linkedinLink, pageWidth/2 + 15, line2Y);
+                pdf.link(pageWidth/2 + 15, line2Y - 2, 55, 4, {url: 'https://www.linkedin.com/in/baltazar-dimayuga-4000a2293'});
+                pdf.setTextColor(0, 0, 0);
+                
+                yPos += 6;
+                
+                // Línea separadora
+                pdf.line(margin, yPos, pageWidth - margin, yPos);
+                yPos += 8;
+                
+                // Perfil Profesional con mejor espaciado
+                pdf.setFontSize(11);
+                pdf.setFont(undefined, 'bold');
+                pdf.text('PERFIL PROFESIONAL', margin, yPos);
+                yPos += 6;
+                
+                pdf.setFontSize(9);
+                pdf.setFont(undefined, 'normal');
+                const perfilText = 'Analista de Datos Jr e Ingeniero en Computación especializado en Python, SQL, Power BI y visualización de datos. Experiencia comprobada en automatización de procesos (reducción del 40% en tiempos), optimización técnica (disminución del 20% en incidencias) y crecimiento empresarial (incremento del 60% en ventas). Busco aplicar mis habilidades analíticas como Data Analyst Jr para generar valor empresarial mediante Business Intelligence.';
+                const perfilLines = pdf.splitTextToSize(perfilText, maxWidth);
+                pdf.text(perfilLines, margin, yPos);
+                yPos += perfilLines.length * 4 + 6;
+                
+                // Habilidades Técnicas con espaciado mejorado
+                pdf.setFontSize(11);
+                pdf.setFont(undefined, 'bold');
+                pdf.text('HABILIDADES TÉCNICAS E IDIOMAS', margin, yPos);
+                yPos += 6;
+                
+                pdf.setFontSize(8);
+                pdf.setFont(undefined, 'bold');
+                pdf.text('ANÁLISIS DE DATOS Y BI', margin, yPos);
+                yPos += 4;
+                pdf.setFont(undefined, 'normal');
+                const skillsLine1 = pdf.splitTextToSize('Python (Avanzado) • SQL (Avanzado) • Pandas/NumPy (Avanzado) • Power BI (Intermedio) • Tableau (Básico) • Excel Avanzado • Matplotlib/Seaborn • EDA • Pruebas de Hipótesis', maxWidth);
+                pdf.text(skillsLine1, margin, yPos);
+                yPos += skillsLine1.length * 3.2 + 3;
+                
+                pdf.setFont(undefined, 'bold');
+                pdf.text('BASES DE DATOS Y HERRAMIENTAS', margin, yPos);
+                yPos += 4;
+                pdf.setFont(undefined, 'normal');
+                pdf.text('MySQL (Avanzado) • PostgreSQL (Básico) • Modelado de Datos • Git/GitHub • Jupyter Notebooks • APIs REST', margin, yPos);
+                yPos += 6;
+                
+                pdf.setFont(undefined, 'bold');
+                pdf.text('COMPLEMENTARIAS', margin, yPos);
+                yPos += 4;
+                pdf.setFont(undefined, 'normal');
+                pdf.text('JavaScript • PHP • HTML5/CSS3 • Shopify • Español (Nativo) • Inglés (Profesional-Avanzado)', margin, yPos);
+                yPos += 8;
+                
+                // Experiencia Profesional con mejor espaciado
+                pdf.setFontSize(11);
+                pdf.setFont(undefined, 'bold');
+                pdf.text('EXPERIENCIA PROFESIONAL', margin, yPos);
+                yPos += 6;
+                
+                // Trabajos con espaciado mejorado
+                const trabajos = [
+                    {
+                        titulo: 'Desarrollador Web',
+                        empresa: 'OK Latino | Ciudad de México',
+                        fecha: 'Jun 2025 - Presente',
+                        bullets: [
+                            'Desarrollé +5 sitios e-commerce (Kings League Americas, Big and Tall) optimizando UX y reduciendo tiempos de carga 25%',
+                            'Implementé soluciones con HTML5, CSS3, JavaScript y Shopify aplicando metodologías ágiles'
+                        ]
+                    },
+                    {
+                        titulo: 'Colaborador TI',
+                        empresa: 'Instituto Mejoramiento Judicial | Guerrero',
+                        fecha: 'Jul 2022 - Ago 2023',
+                        bullets: [
+                            'Gestioné procesos audiovisuales para +150 audiencias mensuales sin interrupciones críticas',
+                            'Reduje incidencias técnicas 20% implementando mantenimiento preventivo sistemático',
+                            'Automaticé procesos desarrollando 3 aplicaciones PHP, reduciendo tiempo de gestión manual 40%'
+                        ]
+                    },
+                    {
+                        titulo: 'Soporte TI y Ventas',
+                        empresa: 'Pachateca | Guerrero',
+                        fecha: 'Jul 2017 - Feb 2020',
+                        bullets: [
+                            'Soporte técnico a +50 clientes semanalmente con 95% satisfacción',
+                            'Contribuí al crecimiento de ventas 60% mediante análisis estratégico de inventario'
+                        ]
+                    }
+                ];
+                
+                trabajos.forEach(trabajo => {
+                    pdf.setFontSize(9);
+                    pdf.setFont(undefined, 'bold');
+                    pdf.text(trabajo.titulo, margin, yPos);
+                    pdf.setFont(undefined, 'normal');
+                    pdf.text(trabajo.fecha, pageWidth - margin - 30, yPos);
+                    yPos += 4;
+                    pdf.setFont(undefined, 'italic');
+                    pdf.text(trabajo.empresa, margin, yPos);
+                    yPos += 4;
+                    
+                    pdf.setFont(undefined, 'normal');
+                    trabajo.bullets.forEach(bullet => {
+                        const bulletLines = pdf.splitTextToSize('• ' + bullet, maxWidth - 5);
+                        pdf.text(bulletLines, margin + 3, yPos);
+                        yPos += bulletLines.length * 3.5;
+                    });
+                    yPos += 3;
+                });
+                
+                // Proyectos Destacados con mejor espaciado
+                pdf.setFontSize(11);
+                pdf.setFont(undefined, 'bold');
+                pdf.text('PROYECTOS DESTACADOS', margin, yPos);
+                yPos += 6;
+                
+                // Proyecto 1 con espaciado mejorado
+                pdf.setFontSize(9);
+                pdf.setFont(undefined, 'bold');
+                pdf.text('Análisis de Factores de Éxito en Videojuegos', margin, yPos);
+                yPos += 4;
+                pdf.setFont(undefined, 'italic');
+                pdf.text('EDA y Pruebas de Hipótesis - Data Analytics (2025)', margin, yPos);
+                yPos += 4;
+                pdf.setFont(undefined, 'normal');
+                
+                const proyecto1Bullets = [
+                    'Problema: Identificar factores clave para optimizar estrategias de lanzamiento',
+                    'Dataset: +16,000 registros de ventas (1980-2016) | Stack: Python, Pandas, NumPy, Matplotlib, Seaborn',
+                    'Resultado: Identifiqué géneros con 15% mayor probabilidad de éxito + dashboard Power BI con DAX'
+                ];
+                
+                proyecto1Bullets.forEach(bullet => {
+                    const bulletLines = pdf.splitTextToSize('• ' + bullet, maxWidth - 5);
+                    pdf.text(bulletLines, margin + 3, yPos);
+                    yPos += bulletLines.length * 3.5;
+                });
+                
+                // Link funcional
+                pdf.setTextColor(0, 0, 255);
+                pdf.text('• GitHub: github.com/Baltazardv/Ice-Online-Store', margin + 3, yPos);
+                pdf.link(margin + 13, yPos - 2, 80, 4, {url: 'https://github.com/Baltazardv/Ice-Online-Store'});
+                pdf.setTextColor(0, 0, 0);
+                yPos += 5;
+                
+                // Proyecto 2 con espaciado mejorado
+                pdf.setFont(undefined, 'bold');
+                pdf.text('GymSpot - Aplicación de Localización', margin, yPos);
+                yPos += 4;
+                pdf.setFont(undefined, 'italic');
+                pdf.text('Full-Stack Development (2023)', margin, yPos);
+                yPos += 4;
+                pdf.setFont(undefined, 'normal');
+                
+                const proyecto2Bullets = [
+                    'Problema: Localización de gimnasios con filtrado avanzado | Usuarios: +100 beta testers',
+                    'Stack: JavaScript ES6, APIs geolocalización | Resultado: Reducción 50% tiempo búsqueda'
+                ];
+                
+                proyecto2Bullets.forEach(bullet => {
+                    const bulletLines = pdf.splitTextToSize('• ' + bullet, maxWidth - 5);
+                    pdf.text(bulletLines, margin + 3, yPos);
+                    yPos += bulletLines.length * 3.5;
+                });
+                
+                // Link funcional
+                pdf.setTextColor(0, 0, 255);
+                pdf.text('• GitHub: github.com/Baltazardv/ProyectoGymSpot', margin + 3, yPos);
+                pdf.link(margin + 13, yPos - 2, 80, 4, {url: 'https://github.com/Baltazardv/ProyectoGymSpot'});
+                pdf.setTextColor(0, 0, 0);
+                yPos += 8;
+                
+                // Educación y Certificaciones con mejor distribución
+                pdf.setFontSize(11);
+                pdf.setFont(undefined, 'bold');
+                pdf.text('EDUCACIÓN Y CERTIFICACIONES', margin, yPos);
+                yPos += 6;
+                
+                pdf.setFontSize(9);
+                pdf.setFont(undefined, 'bold');
+                pdf.text('Bootcamp Analista de Datos', margin, yPos);
+                pdf.setFont(undefined, 'normal');
+                pdf.text('En curso (2025)', pageWidth - margin - 25, yPos);
+                yPos += 4;
+                pdf.setFont(undefined, 'italic');
+                pdf.text('TripleTen', margin, yPos);
+                yPos += 4;
+                pdf.setFont(undefined, 'normal');
+                const bootcampText = pdf.splitTextToSize('• EDA, SQL avanzado, Python/Pandas, Power BI, dashboards, hipótesis estadísticas, storytelling con KPIs', maxWidth - 5);
+                pdf.text(bootcampText, margin + 3, yPos);
+                yPos += bootcampText.length * 3.5 + 4;
+                
+                pdf.setFont(undefined, 'bold');
+                pdf.text('Ingeniería en Computación', margin, yPos);
+                pdf.setFont(undefined, 'normal');
+                pdf.text('Feb 2018 - May 2023', pageWidth - margin - 30, yPos);
+                yPos += 4;
+                pdf.setFont(undefined, 'italic');
+                pdf.text('Universidad Autónoma de Guerrero', margin, yPos);
+                yPos += 6;
+                
+                // Certificaciones con tamaño mejorado y mejor espaciado
+                pdf.setFontSize(8.5);
+                pdf.setFont(undefined, 'normal');
+                const certText = pdf.splitTextToSize('• Certificaciones: Python Essentials 1&2 (CISCO) • Front-End Profesional (Código Facilito) • Seguridad de Red (Palo Alto)', maxWidth - 5);
+                pdf.text(certText, margin + 3, yPos);
+                
+            } else {
+                // Cover Letter content (sin cambios significativos)
+                yPos = 30;
+                pdf.setFontSize(10);
+                pdf.text('Guerrero, México', pageWidth - margin, yPos, { align: 'right' });
+                yPos += 4;
+                pdf.text('23 de septiembre de 2025', pageWidth - margin, yPos, { align: 'right' });
+                yPos += 15;
+                
+                pdf.setFont(undefined, 'bold');
+                pdf.text('Equipo de Recursos Humanos', margin, yPos);
+                yPos += 4;
+                pdf.text('Afirma Solutions', margin, yPos);
+                yPos += 4;
+                pdf.text('Ciudad de México', margin, yPos);
+                yPos += 15;
+                
+                pdf.setFont(undefined, 'normal');
+                pdf.text('Estimado equipo de reclutamiento:', margin, yPos);
+                yPos += 10;
+                
+                // Contenido de la carta
+                const parrafos = [
+                    'Me dirijo a ustedes para expresar mi interés en la posición de Data Analyst (Power BI) (ID: 1009873612255) publicada en Glassdoor. Como Ingeniero en Computación titulado con especialización actual en análisis de datos y experiencia práctica en SQL avanzado, Python, Power BI, modelado de datos y desarrollo de medidas DAX, considero que mi perfil técnico y mi enfoque hacia la inteligencia de negocios pueden aportar valor significativo a Afirma Solutions.',
+                    
+                    'Mi formación académica en Ingeniería en Computación me ha proporcionado una base sólida en tecnologías fundamentales para el análisis de datos. Actualmente completo mi especialización en Data Analytics en TripleTen, donde he profundizado en análisis exploratorio de datos (EDA), limpieza y transformación de datasets, desarrollo de medidas DAX avanzadas, modelado estrella, SQL complejas y storytelling con KPIs empresariales.',
+                    
+                    'En términos de experiencia práctica, he automatizado procesos empresariales mediante desarrollo de aplicaciones que redujeron 40% el tiempo de gestión manual, gestioné procesos técnicos para +150 operaciones mensuales sin interrupciones críticas, y contribuí a un crecimiento de ventas del 60% mediante análisis estratégico de inventario.',
+                    
+                    'Me atrae particularmente Afirma Solutions por su especialización en consultoría tecnológica y financiera, sectores donde el análisis de datos es crucial para optimizar operaciones, identificar oportunidades de crecimiento y desarrollar estrategias basadas en Business Intelligence.',
+                    
+                    'Estoy entusiasmado por la oportunidad de aplicar mis conocimientos en análisis de datos, Power BI, SQL avanzado y modelado estrella en un entorno empresarial dinámico como Afirma Solutions.',
+                    
+                    'Sin más por el momento, agradezco su tiempo y consideración. Quedo a la espera de la oportunidad de conversar sobre cómo puedo contribuir al éxito de Afirma Solutions aportando valor mediante análisis de datos avanzado y Business Intelligence.'
+                ];
+                
+                parrafos.forEach(parrafo => {
+                    checkAndAddPage(20);
+                    const lines = pdf.splitTextToSize(parrafo, maxWidth);
+                    pdf.text(lines, margin, yPos);
+                    yPos += lines.length * 4 + 8;
+                });
+                
+                yPos += 10;
+                checkAndAddPage(15);
+                pdf.text('Atentamente,', margin, yPos);
+                yPos += 15;
+                pdf.setFont(undefined, 'bold');
+                pdf.text('Baltazar Dimayuga', margin, yPos);
+                yPos += 5;
+                pdf.setFont(undefined, 'normal');
+                pdf.text('Tel: (+52) 747 155 8247', margin, yPos);
+                yPos += 4;
+                pdf.text('Email: baltazardv13@gmail.com', margin, yPos);
+                yPos += 4;
+                
+                // Links funcionales en firma
+                pdf.setTextColor(0, 0, 255);
+                pdf.text('LinkedIn: linkedin.com/in/baltazar-dimayuga', margin, yPos);
+                pdf.link(margin + 20, yPos - 2, 80, 4, {url: 'https://www.linkedin.com/in/baltazar-dimayuga-4000a2293'});
+                yPos += 4;
+                pdf.text('GitHub: github.com/BaltazarDV', margin, yPos);
+                pdf.link(margin + 15, yPos - 2, 60, 4, {url: 'https://github.com/BaltazarDV'});
+                pdf.setTextColor(0, 0, 0);
+            }
+            
+            pdf.save(fileName);
         }
 
         function downloadAsDOCX() {
